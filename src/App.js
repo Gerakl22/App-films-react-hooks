@@ -1,7 +1,15 @@
 import React from "react";
 
-function App() {
-  return null;
+import { FilmsPage } from "./pages/films/FilmsPage";
+
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <FilmsPage />
+      </>
+    );
+  }
 }
 
 export default App;
