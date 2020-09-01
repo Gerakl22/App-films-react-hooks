@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 
+import { FilmsForm } from './FilmsForm';
+
 import "./FilmsPage.css";
+
+const FilmsPageMode = {
+  ADD: "film_add",
+  EDIT: "film_edit",
+  LIST: "film_list",
+}
 
 export const FilmsPage = () => {
   const [films, setFilms] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [mode, setMode] = useState(FilmsPageMode.LIST);
 
   useEffect(() => {
     fetch("/films")
@@ -23,7 +32,20 @@ export const FilmsPage = () => {
     return "...Error...";
   }
 
+  if(mode === FilmsPageMode.ADD) {
+    return <FilmsForm 
+    onSave={() => {}}
+    onCancel={() => setMode({mode: FilmsPageMode.LIST})}
+    />
+  }
+
   return (
+    <>
+    <button
+    onClick={() => setMode({mode: FilmsPageMode.ADD})}
+    >
+      Add
+    </button>
     <table className="table-film">
       <thead>
         <tr>
@@ -72,5 +94,6 @@ export const FilmsPage = () => {
           ))}
       </tbody>
     </table>
+    </>
   );
 };
