@@ -53,10 +53,11 @@ export const FilmsPage = () => {
                   onClick={async () => {
                     setIsLoading(true);
                     try {
-                      await fetch(`/films/${film.id}`);
+                      await fetch(`/films/${film.id}`, { method: "DELETE" });
 
-                      const result = films.filter((e) => e.id !== film.id);
-                      setFilms(result);
+                      setFilms((films) =>
+                        films.filter((e) => e.id !== film.id)
+                      );
                     } catch (error) {
                       setError(error);
                     } finally {
